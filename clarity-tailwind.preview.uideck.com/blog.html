@@ -133,7 +133,7 @@
         :class="{ 'visible! bg-white shadow-lgrelative h-auto! max-h-[400px] overflow-y-scroll rounded-md mt-4 p-7.5': navigationOpen }">
         <!-- Main Nav Start -->
         <nav>
-          <ul class="flex lg:items-center flex-col lg:flex-row gap-5 lg:gap-10 mr-5">
+          <ul class="flex lg:items-center flex-col lg:flex-row gap-5 lg:gap-10 mr-5 metropolis font-semibold">
             <li class="nav__menu lg:py-6.5" :class="{ 'lg:py-4!' : stickyMenu }">
               <a href="index.html" class="hover:text-dark">Home</a>
             </li>
@@ -219,7 +219,7 @@
           <div class="xl:max-w-[770px] w-full">
             <img src="assets/wordthread-4.webp" alt="blog" class="w-full mb-10" />
 
-            <h1 class="font-bold text-2xl sm:text-4xl lg:text-custom-2 text-dark mb-5.5">
+            <h1 class="metropolis font-bold text-2xl sm:text-4xl lg:text-custom-2 text-dark mb-5.5">
               Give Your Space a Parisian - Inspired Makeover
             </h1>
 
@@ -291,7 +291,7 @@
               </div>
 
               <div class="lg:max-w-[380px] w-full">
-                <h3 class="mb-4 font-bold text-heading-5 text-dark">
+                <h3 class="metropolis mb-4 font-bold text-heading-5 text-dark">
                   justo ullamcorper vulputate
                 </h3>
 
@@ -311,7 +311,7 @@
             </div>
 
             <div class="mt-10">
-              <h2 class="mb-6 font-semibold text-custom-3 text-dark">
+              <h2 class="metropolis mb-6 font-semibold text-custom-3 text-dark">
                 Donec mattis aliquam urna
               </h2>
 
@@ -438,7 +438,7 @@
 
               <div class="max-w-[617px]">
                 <h4 class="font-medium text-dark text-[22px] leading-7 mb-3">
-                  <a href="author.html" class="font-bold">Rayna Kenter</a>
+                  <a href="author.html" class="font-bold metropolis">Rayna Kenter</a>
                 </h4>
                 <p>
                   Sed ut perspiciatis unde omnis iste natus error sit
@@ -503,7 +503,7 @@
             <div class="flex flex-col gap-10">
               <!-- Recent Post Box Start -->
               <div class="max-w-[370px] w-full rounded-[10px] border border-gray-3 p-4 sm:p-7.5 lg:p-10">
-                <h4 class="font-semibold text-custom-4 text-dark mb-7.5">
+                <h4 class="metropolis font-bold text-custom-4 text-dark mb-7.5">
                   Recent Posts
                 </h4>
 
@@ -515,11 +515,11 @@
                     </div>
 
                     <div>
-                      <h5 class="font-medium text-sm text-dark duration-200 ease-in mb-1.5 group-hover:text-primary">
+                      <h5 class="font-semibold metropolis text-sm text-dark duration-200 ease-in mb-1.5 group-hover:text-(--primary-color)">
                         The Most Beautiful Green Field on Earth
                       </h5>
                       <div class="flex items-center gap-2">
-                        <p class="text-custom-xs">Rhiel Madsen</p>
+                        <p class="text-custom-xs font-semibold">Rhiel Madsen</p>
                         <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
                         <p class="text-custom-xs">Sep 10, 2025</p>
                       </div>
@@ -533,12 +533,12 @@
                     </div>
 
                     <div>
-                      <h5 class="font-medium text-sm text-dark duration-200 ease-in mb-1.5 group-hover:text-primary">
+                      <h5 class="font-semibold metropolis text-sm text-dark duration-200 ease-in mb-1.5 group-hover:text-(--primary-color)">
                         Facts About Business That Will Help You Success
                       </h5>
 
                       <div class="flex items-center gap-2">
-                        <p class="text-custom-xs">Jordyn Culhne</p>
+                        <p class="text-custom-xs font-semibold">Jordyn Culhne</p>
                         <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
                         <p class="text-custom-xs">Mar 12, 2025</p>
                       </div>
@@ -552,12 +552,12 @@
                     </div>
 
                     <div>
-                      <h5 class="font-medium text-sm text-dark duration-200 ease-in mb-1.5 group-hover:text-primary">
+                      <h5 class="font-semibold metropolis text-sm text-dark duration-200 ease-in mb-1.5 group-hover:text-(--primary-color)">
                         5 Easy Ways You Can Turn Future Into Success
                       </h5>
 
                       <div class="flex items-center gap-2">
-                        <p class="text-custom-xs">Ane Madsen</p>
+                        <p class="text-custom-xs font-semibold">Ane Madsen</p>
                         <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
                         <p class="text-custom-xs">Nov 25, 2025</p>
                       </div>
@@ -569,91 +569,91 @@
 
               <!-- Explore Topics Box Start -->
               <div class="max-w-[370px]  w-full rounded-[10px] border border-gray-3 p-4 sm:p-7.5 lg:p-10">
-                <h4 class="mb-8 font-semibold text-custom-4 text-dark">
+                <h4 class="metropolis mb-8 font-bold text-custom-4 text-dark">
                   On this page
                 </h4>
 
                 <div class="flex flex-col gap-3">
                   <!-- topics item -->
                   <a href="#" class="flex items-center justify-between gap-2 group">
-                    <p class="duration-200 ease-in group-hover:text-dark">
+                    <p class="metropolis font-semibold duration-200 ease-in group-hover:text-(--primary-color)">
                       Celebration
                     </p>
 
                     <span
-                      class="flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-gray-3 ease-in duration-200 group-hover:text-white group-hover:bg-(--primary-color) group-hover:border-(--primary-color)">
+                      class="metropolis font-semibold flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-(--primary-color) ease-in duration-200 group-hover:text-white group-hover:bg-(--primary-color) group-hover:border-(--primary-color)">
                       01
                     </span>
                   </a>
 
                   <!-- topics item -->
                   <a href="#" class="flex items-center justify-between gap-2 group">
-                    <p class="duration-200 ease-in group-hover:text-dark">
+                    <p class="metropolis font-semibold duration-200 ease-in group-hover:text-(--primary-color)">
                       Culture
                     </p>
 
                     <span
-                      class="flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-gray-3 ease-in duration-200 group-hover:text-white group-hover:bg-(--primary-color) group-hover:border-(--primary-color)">
+                      class="metropolis font-semibold flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-(--primary-color) ease-in duration-200 group-hover:text-white group-hover:bg-(--primary-color) group-hover:border-(--primary-color)">
                       02
                     </span>
                   </a>
 
                   <!-- topics item -->
                   <a href="#" class="flex items-center justify-between gap-2 group">
-                    <p class="duration-200 ease-in group-hover:text-dark">
+                    <p class="metropolis font-semibold duration-200 ease-in group-hover:text-(--primary-color)">
                       Fashion
                     </p>
 
                     <span
-                      class="flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-gray-3 ease-in duration-200 group-hover:text-white group-hover:bg-(--primary-color) group-hover:border-(--primary-color)">
+                      class="metropolis font-semibold flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-(--primary-color) ease-in duration-200 group-hover:text-white group-hover:bg-(--primary-color) group-hover:border-(--primary-color)">
                       03
                     </span>
                   </a>
 
                   <!-- topics item -->
-                  <a href="#" class="flex items-center justify-between gap-2 group">
-                    <p class="duration-200 ease-in group-hover:text-dark">
+                  <a href="#" class="metropolis font-semibold flex items-center justify-between gap-2 group">
+                    <p class="metropolis font-semibold duration-200 ease-in group-hover:text-(--primary-color)">
                       Inspiration
                     </p>
 
                     <span
-                      class="flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-gray-3 ease-in duration-200 group-hover:text-white group-hover:bg-(--primary-color) group-hover:border-(--primary-color)">
+                      class="flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-(--primary-color) ease-in duration-200 group-hover:text-white group-hover:bg-(--primary-color) group-hover:border-(--primary-color)">
                       04
                     </span>
                   </a>
 
                   <!-- topics item -->
-                  <a href="#" class="flex items-center justify-between gap-2 group">
-                    <p class="duration-200 ease-in group-hover:text-dark">
+                  <a href="#" class="metropolis font-semibold flex items-center justify-between gap-2 group">
+                    <p class="metropolis font-semibold duration-200 ease-in group-hover:text-(--primary-color)">
                       Lifestyle
                     </p>
 
                     <span
-                      class="flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-gray-3 ease-in duration-200 group-hover:text-white group-hover:bg-(--primary-color) group-hover:border-(--primary-color)">
+                      class="metropolis font-semibold flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-(--primary-color) ease-in duration-200 group-hover:text-white group-hover:bg-(--primary-color) group-hover:border-(--primary-color)">
                       05
                     </span>
                   </a>
 
                   <!-- topics item -->
-                  <a href="#" class="flex items-center justify-between gap-2 group">
-                    <p class="duration-200 ease-in group-hover:text-dark">
+                  <a href="#" class="metropolis font-semibold flex items-center justify-between gap-2 group">
+                    <p class="metropolis font-semibold duration-200 ease-in group-hover:text-(--primary-color)">
                       Political
                     </p>
 
                     <span
-                      class="flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-gray-3 ease-in duration-200 group-hover:text-white group-hover:bg-(--primary-color) group-hover:border-(--primary-color)">
+                      class="metropolis font-semibold flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-(--primary-color) ease-in duration-200 group-hover:text-white group-hover:bg-(--primary-color) group-hover:border-(--primary-color)">
                       06
                     </span>
                   </a>
 
                   <!-- topics item -->
                   <a href="#" class="flex items-center justify-between gap-2 group">
-                    <p class="duration-200 ease-in group-hover:text-dark">
+                    <p class="metropolis font-semibold duration-200 ease-in group-hover:text-(--primary-color)">
                       Trending
                     </p>
 
                     <span
-                      class="flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-gray-3 ease-in duration-200 group-hover:text-white group-hover:bg-(--primary-color) group-hover:border-(--primary-color)">
+                      class="metropolis font-semibold flex items-center justify-center max-w-[32px] w-full h-8 rounded-full text-custom-sm border border-(--primary-color) ease-in duration-200 group-hover:text-white group-hover:bg-(--primary-color) group-hover:border-(--primary-color)">
                       07
                     </span>
                   </a>

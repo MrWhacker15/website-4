@@ -120,7 +120,7 @@
         :class="{ 'visible! bg-white shadow-lgrelative h-auto! max-h-[400px] overflow-y-scroll rounded-md mt-4 p-7.5': navigationOpen }">
         <!-- Main Nav Start -->
         <nav>
-          <ul class="flex lg:items-center flex-col lg:flex-row gap-5 lg:gap-10 mr-5">
+          <ul class="flex lg:items-center flex-col lg:flex-row gap-5 lg:gap-10 mr-5 metropolis font-semibold">
             <li class="nav__menu lg:py-6.5" :class="{ 'lg:py-4!' : stickyMenu }">
               <a href="index.html" class="hover:text-dark">Home</a>
             </li>
@@ -202,9 +202,21 @@
             </div>
 
             <div class="lg:max-w-[490px] w-full">
-              <span class="inline-flex text-(--primary-color) font-semibold text-xl mb-2.5"
-                >Who we are</span
-              >
+             <div class="flex flex-wrap items-center gap-4">
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <a href="category.html"
+                  class="inline-flex  bg-(--primary-color) text-white font-medium text-custom-sm py-1 px-3 rounded-bl-lg rounded-tr-lg">
+                  Health
+                </a>
+                 
+                  <p class="text-custom-sm">Sep 10, 2025</p>
+                  <span class="flex w-[3px] h-[3px] rounded-full bg-dark-2"></span>
+                  <p class="text-custom-sm">12 min read</p>
+                </div>
+
+                
+              </div>
+              
               <h1
                 class="font-bold text-heading-6 sm:text-heading-4 lg:text-heading-3 text-dark mb-5 metropolis"
               >
