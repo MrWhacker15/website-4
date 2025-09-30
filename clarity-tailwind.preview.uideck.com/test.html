@@ -1,0 +1,213 @@
+<style>
+  .nc--wrapper { max-width:1440px; margin:0 auto; }
+
+  .network-carousel { overflow:hidden; width:100%; position:relative; }
+  .network-carousel__track { display:flex; align-items:center; will-change:transform; }
+
+  .network-carousel__item {
+    width: 180px;
+    flex: 0 0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 0.5rem 0;
+    margin: 25px;
+    box-sizing:border-box;
+  }
+
+  .network-carousel__item img {
+    height: 48px;          /* logo height */
+    display:block;
+    object-fit:contain;
+    max-width:100%;
+  }
+
+  .network-carousel {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  }
+
+  .network-carousel [aria-hidden="true"] { pointer-events: none; }
+</style>
+
+<div class="nc--wrapper">
+  <div class="network-carousel js-network-carousel" data-speed="80">
+    <div class="network-carousel__track" aria-live="off"></div>
+    <div class="network-carousel__base" style="display:none">
+        <div class="network-carousel__item">
+          <img src="https://toofiftytoo.com/storage/photos/shares/media/VKNA2HW4A9scF0oZ4KReWZN6sCSV1M.webp" />
+        </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  // NetworkCarousel - namespaced, operates only on elements with .js-network-carousel
+  class NetworkCarousel {
+    constructor(root) {
+      this.root = root;
+      this.track = root.querySelector('.network-carousel__track');
+      this.baseHolder = root.querySelector('.network-carousel__base');
+      this.pxPerSecond = parseFloat(root.dataset.speed) || 80; // default speed (px/sec)
+      this.animation = null;
+      this.handlers = [];
+      this._resizeTimer = null;
+      this._init();
+    }
+
+    // wait for images in a given element to load (resolve on load/error)
+    imagesLoaded(el) {
+      const imgs = Array.from(el.querySelectorAll('img'));
+      return Promise.all(imgs.map(img => {
+        if (img.complete && img.naturalWidth !== 0) return Promise.resolve();
+        return new Promise(res => {
+          img.addEventListener('load', res, { once: true });
+          img.addEventListener('error', res, { once: true });
+        });
+      }));
+    }
+
+    clearTrack() {
+      this.track.innerHTML = '';
+    }
+
+    teardown() {
+      // cancel existing animation
+      if (this.animation && typeof this.animation.cancel === 'function') {
+        try { this.animation.cancel(); } catch (e) {/ignore/ }
+      }
+      this.animation = null;
+      // remove event listeners added by this instance
+      this.handlers.forEach(h => h.el.removeEventListener(h.ev, h.fn));
+      this.handlers = [];
+    }
+
+    async _init() {
+      // safety: require track and base holder
+      if (!this.track || !this.baseHolder) return;
+
+      // Build the running sequence and animate. Also rebuild on resize.
+      await this.build();
+      // Rebuild on resize (debounced)
+      window.addEventListener('resize', () => {
+        clearTimeout(this._resizeTimer);
+        this._resizeTimer = setTimeout(() => this.build(), 160);
+      });
+    }
+
+    async build() {
+      this.teardown();
+      this.clearTrack();
+
+      // copy base item nodes into a temporary container (SINGLE copy)
+      const baseItems = Array.from(this.baseHolder.querySelectorAll('.network-carousel__item'));
+      if (baseItems.length === 0) return;
+
+      // Create a temporary seq container that contains exactly one copy of baseItems
+      const baseSeq = document.createElement('div');
+      baseSeq.className = 'network-carousel__sequence';
+      baseSeq.style.display = 'flex';
+      baseSeq.style.alignItems = 'center';
+      baseItems.forEach(item => {
+        // clone so we don't remove original elements
+        const clone = item.cloneNode(true);
+        baseSeq.appendChild(clone);
+      });
+
+      // Append baseSeq into track (temporarily) so images load & we can measure
+      this.track.appendChild(baseSeq);
+
+      // wait for images in the temporary base to load before measuring
+      await this.imagesLoaded(baseSeq);
+
+      // measure widths
+      const viewportWidth = Math.max(1, this.root.getBoundingClientRect().width);
+      const baseWidth = Math.max(0.0001, baseSeq.getBoundingClientRect().width);
+
+      // compute how many times to repeat baseSeq so that S.width >= viewportWidth
+      // (we want S >= viewportWidth so track = S+S will be >= 2*viewport, guaranteeing no gap)
+      const reps = Math.max(1, Math.ceil(viewportWidth / baseWidth));
+
+      // Build the final sequence S (repeated)
+      const sequence = document.createElement('div');
+      sequence.className = 'network-carousel__sequence--final';
+      sequence.style.display = 'flex';
+      sequence.style.alignItems = 'center';
+      for (let i = 0; i < reps; i++) {
+        // append clones of base items (not baseSeq itself) to avoid duplicating nested wrappers
+        baseItems.forEach(item => {
+          const clone = item.cloneNode(true);
+          sequence.appendChild(clone);
+        });
+      }
+
+      // clean track and append S + S
+      this.clearTrack();
+      this.track.appendChild(sequence);
+      const sequenceClone = sequence.cloneNode(true);
+      sequenceClone.setAttribute('aria-hidden', 'true'); // decorative duplicate for screen readers
+      this.track.appendChild(sequenceClone);
+
+      // measure distance to animate (width of S)
+      // force reflow
+      const distance = Math.max(0.0001, sequence.getBoundingClientRect().width);
+
+      // If reduced motion, do not animate
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+      }
+
+      // duration calculated from pxPerSecond
+      const durationMs = (distance / this.pxPerSecond) * 1000;
+
+      // Use Web Animations API for precise linear, infinite animation
+      if (this.track.animate && typeof this.track.animate === 'function') {
+        this.animation = this.track.animate(
+          [
+            { transform: 'translateX(0px)' },
+            { transform: `translateX(-${distance}px)` }
+          ],
+          {
+            duration: Math.max(100, Math.round(durationMs)),
+            iterations: Infinity,
+            easing: 'linear'
+          }
+        );
+
+        // pause/play handlers
+        const pause = () => { try { this.animation.pause(); } catch (e) {} };
+        const play  = () => { try { this.animation.play(); } catch (e) {} };
+
+        this.track.addEventListener('mouseenter', pause);
+        this.track.addEventListener('mouseleave', play);
+        this.track.addEventListener('focusin', pause);
+        this.track.addEventListener('focusout', play);
+
+        this.handlers.push({ el: this.track, ev: 'mouseenter', fn: pause });
+        this.handlers.push({ el: this.track, ev: 'mouseleave', fn: play });
+        this.handlers.push({ el: this.track, ev: 'focusin', fn: pause });
+        this.handlers.push({ el: this.track, ev: 'focusout', fn: play });
+      } else {
+        // fallback: CSS animation (creates a unique keyframe name so it won't collide)
+        const id = 'nc_kf_' + Math.floor(Math.random() * 1000000);
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes ${id} { from { transform: translateX(0); } to { transform: translateX(-${distance}px); } }
+        `;
+        document.head.appendChild(style);
+        sequence.style.animation = `${id} ${Math.max(1, Math.round(durationMs))}ms linear infinite`;
+        sequenceClone.style.animation = `${id} ${Math.max(1, Math.round(durationMs))}ms linear infinite`;
+        // store style so we can remove on teardown
+        this._cssFallbackStyle = style;
+      }
+    }
+  }
+
+  // Instantiate NetworkCarousel for every .js-network-carousel on the page
+  document.addEventListener('DOMContentLoaded', () => {
+    const instances = Array.from(document.querySelectorAll('.js-network-carousel'));
+    instances.forEach(root => new NetworkCarousel(root));
+  });
+})();
+</script>
